@@ -1,6 +1,6 @@
 # スクラムフェス沖縄2026 タイムテーブル
 
-https://takusamar.github.io/scrumfest-okinawa-timetable/
+https://scrumfestokinawa.github.io/scrumfest-okinawa-timetable/
 
 [fortee](https://fortee.jp/scrumfest-okinawa-2026) の公開APIからタイムテーブルを読み込んで表示する静的ページです。
 APIに届かないときは、`index.html` に埋め込んだスナップショットを表示します。
