@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>スクラムフェス沖縄2026 タイムテーブル</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+/* Layout: phone-first time-grouped list with a Now/Next card; wide screens get a track-by-time grid. */
+:root {
+  --bg: #f6f7f8;
+  --surface: #ffffff;
+  --ink: #1b2430;
+  --muted: #5d6875;
+  --line: #d9dee4;
+  --ai: #165e83;          /* 藍色: the colour used on the 2025 novelty towel */
+  --ai-soft: #e3eef5;
+  --kawara: #b4543c;      /* 赤瓦 */
+  --kawara-soft: #f7e7e2;
+  --umi: #1f7a6d;
+  --umi-soft: #e0f1ee;
+  --slot: #eef1f4;
+  --now: #d1462f;
+  --now-soft: #fbe9e5;
+  --font: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --row: 1.15rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161c; --surface: #19212a; --ink: #e7ecf1; --muted: #9aa6b3; --line: #2c3742;
+    --ai: #6fb3d9; --ai-soft: #1a3344; --kawara: #e48a71; --kawara-soft: #3a2420;
+    --umi: #5cc4b2; --umi-soft: #173530; --slot: #1f2832; --now: #ff7a62; --now-soft: #3a211c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161c; --surface: #19212a; --ink: #e7ecf1; --muted: #9aa6b3; --line: #2c3742;
+  --ai: #6fb3d9; --ai-soft: #1a3344; --kawara: #e48a71; --kawara-soft: #3a2420;
+  --umi: #5cc4b2; --umi-soft: #173530; --slot: #1f2832; --now: #ff7a62; --now-soft: #3a211c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font);
+  font-size: 15px; line-height: 1.6; -webkit-text-size-adjust: 100%;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; }
+button { font: inherit; color: inherit; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--kawara); outline-offset: 2px; }
+
+header.top { padding-block: 16px 4px; display: grid; gap: 2px; }
+h1 { font-weight: 700; font-size: clamp(19px, 4.6vw, 30px); line-height: 1.3; margin: 0; text-wrap: balance; }
+.meta { color: var(--muted); font-size: 13px; }
+
+/* sticky controls */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 6; background: var(--bg);
+  padding-block: 10px 8px; display: grid; gap: 8px; border-bottom: 1px solid var(--line);
+}
+.tabs { display: grid; grid-template-columns: repeat(var(--days, 2), 1fr); gap: 6px; }
+.tab {
+  min-height: 44px; border: 1px solid var(--line); background: var(--surface); border-radius: 10px;
+  font-weight: 700; display: flex; gap: 8px; align-items: center; justify-content: center; cursor: pointer;
+}
+.tab small { font-weight: 500; color: var(--muted); }
+.tab[aria-selected="true"] { background: var(--ai); border-color: var(--ai); color: var(--bg); }
+.tab[aria-selected="true"] small { color: inherit; opacity: .85; }
+.filters { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.filter {
+  flex: none; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.filter[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+.sw { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.sw.trk-main { background: var(--ai); } .sw.trk-a { background: var(--kawara); } .sw.trk-b { background: var(--umi); }
+
+/* now / next */
+.nownext { margin-top: 12px; border-radius: 12px; background: var(--now-soft); padding: 12px 14px; display: grid; gap: 10px; }
+.nn-block { display: grid; gap: 6px; }
+.nn-label { font-size: 12px; font-weight: 700; color: var(--now); letter-spacing: .04em; }
+.nn-label.next { color: var(--muted); }
+.nn-item {
+  display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: baseline; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 44px;
+}
+.nn-item.talk { cursor: pointer; }
+.nn-item .chip { grid-row: 1; }
+.nn-item .ttl { font-weight: 700; font-size: 15px; line-height: 1.45; grid-column: 1 / -1; }
+.nn-item .rem { font-size: 12.5px; color: var(--muted); grid-row: 1; grid-column: 2; justify-self: end; font-variant-numeric: tabular-nums; }
+
+.chip { font-size: 11.5px; font-weight: 700; padding: 1px 9px; border-radius: 999px; white-space: nowrap; justify-self: start; }
+.chip.trk-main { background: var(--ai-soft); color: var(--ai); }
+.chip.trk-a { background: var(--kawara-soft); color: var(--kawara); }
+.chip.trk-b { background: var(--umi-soft); color: var(--umi); }
+
+/* ---------- list (phones, default) ---------- */
+.list { padding-block: 4px 8px; }
+.group { border-top: 1px solid var(--line); }
+.group-time {
+  position: sticky; top: var(--bar-h, 112px); z-index: 4; background: var(--bg);
+  font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; padding-block: 10px 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.group-time .live { font-size: 11px; color: var(--now); }
+.group .items { display: grid; gap: 8px; padding-bottom: 12px; }
+.item {
+  display: grid; gap: 4px; text-align: left; width: 100%; border-radius: 10px; padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--ai); min-height: 44px;
+}
+.item.trk-a { border-left-color: var(--kawara); } .item.trk-b { border-left-color: var(--umi); }
+.item.talk { cursor: pointer; }
+.item .head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item .ttl { font-weight: 700; font-size: 16px; line-height: 1.5; }
+.item .sp { font-size: 13px; color: var(--muted); }
+.item .more { font-size: 12.5px; color: var(--ai); font-weight: 500; }
+.item.slot { background: var(--slot); border-color: transparent; border-left-color: transparent; padding: 8px 14px; grid-template-columns: 1fr auto; align-items: baseline; }
+.item.slot .ttl { font-size: 15px; font-weight: 500; }
+.item.slot .head { order: 2; }
+.item.ost { background: var(--ai-soft); }
+.item.is-now { box-shadow: 0 0 0 2px var(--now); }
+.empty { color: var(--muted); padding: 24px 0; text-align: center; }
+
+/* ---------- grid (wide screens) ---------- */
+.grid-scroll { display: none; overflow-x: auto; padding-block: 12px; }
+.grid { display: grid; column-gap: 8px; grid-template-columns: 56px repeat(var(--cols), minmax(180px, 1fr)); grid-auto-rows: var(--row); }
+.colhead { grid-row: 1; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid var(--line); }
+.tick { grid-column: 1; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); }
+.rule { grid-column: 2 / -1; border-top: 1px dashed var(--line); pointer-events: none; }
+.rule.hour { border-top-style: solid; }
+.card {
+  margin: 3px 0; border-radius: 6px; padding: 6px 10px; min-width: 0; overflow: hidden; text-align: left;
+  display: flex; flex-direction: column; gap: 2px; border: 1px solid transparent; position: relative; z-index: 1;
+}
+.card .t { font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.card .ttl { font-weight: 700; font-size: 14px; line-height: 1.45; }
+.card .sp { font-size: 12.5px; color: var(--muted); }
+.card.slot { background: var(--slot); }
+.card.slot .ttl { font-weight: 500; }
+.card.talk { cursor: pointer; background: var(--surface); border-color: var(--line); border-left: 4px solid var(--ai); }
+.card.talk.trk-a { border-left-color: var(--kawara); } .card.talk.trk-b { border-left-color: var(--umi); }
+.card.talk:hover { border-color: var(--ink); }
+.card.ost { background: var(--ai-soft); }
+.card.is-now { box-shadow: 0 0 0 2px var(--now); }
+
+@media (min-width: 721px) {
+  .list { display: none; }
+  .grid-scroll { display: block; }
+  .tabs { max-width: 360px; }
+}
+
+.note { color: var(--muted); font-size: 13px; padding-top: 16px; display: grid; gap: 4px; }
+.note a, .sheet a { color: var(--ai); }
+.source { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.source.live .dot { background: var(--umi); }
+
+/* ---------- detail sheet ---------- */
+.scrim { position: fixed; inset: 0; background: rgb(0 0 0 / .45); z-index: 20; display: grid; place-items: end center; }
+.sheet {
+  background: var(--surface); width: min(640px, 100%); max-height: 88vh; overflow: auto; overscroll-behavior: contain;
+  border-radius: 16px 16px 0 0; display: grid; gap: 12px;
+  padding: 8px max(20px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px));
+}
+.sheet .grip { justify-self: center; width: 40px; height: 4px; border-radius: 2px; background: var(--line); margin-top: 4px; }
+.sheet .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.sheet h2 { margin: 0; font-size: 18px; line-height: 1.5; text-wrap: balance; }
+.sheet .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.sheet .abs { white-space: pre-wrap; font-size: 15px; line-height: 1.8; }
+.close { min-height: 40px; min-width: 64px; background: none; border: 1px solid var(--line); border-radius: 999px; padding: 0 16px; cursor: pointer; }
+.btn-link { display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 10px; background: var(--ai); color: var(--bg) !important; font-weight: 700; text-decoration: none; }
+@media (min-width: 721px) { .scrim { place-items: center; } .sheet { border-radius: 16px; } .sheet .grip { display: none; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>スクラムフェス沖縄2026 タイムテーブル</h1>
+    <div class="meta">11/27（金）〜28（土）・沖縄県男女共同参画センター てぃるる</div>
+  </header>
+
+  <div class="bar" id="bar">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="filters" id="filters" role="group" aria-label="トラックで絞り込み"></div>
+  </div>
+
+  <section class="nownext" id="nownext" hidden aria-live="polite"></section>
+
+  <div class="list" id="list"></div>
+  <div class="grid-scroll"><div class="grid" id="grid"></div></div>
+
+  <div class="note">
+    <span class="source" id="source"><span class="dot"></span><span id="source-text">読み込み中…</span></span>
+    <span>ワークショップをタップすると概要が開きます。タイムテーブルは事情により変更になることがあります。</span>
+    <span>元データ：<a href="https://fortee.jp/scrumfest-okinawa-2026" target="_blank" rel="noopener">fortee</a></span>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="p-title">
+    <div class="grip" aria-hidden="true"></div>
+    <div class="top"><div class="row" id="p-row"></div><button class="close" id="p-close" type="button">閉じる</button></div>
+    <h2 id="p-title"></h2>
+    <div class="row" id="p-speaker"></div>
+    <div class="abs" id="p-abs"></div>
+    <a class="btn-link" id="p-link" target="_blank" rel="noopener">fortee で詳細を見る</a>
+  </div>
+</div>
+
+<script>
+const API = "https://fortee.jp/scrumfest-okinawa-2026/api/timetable";
+const SNAPSHOT = {"timetable": [{"type": "timeslot", "uuid": "620120a0-3e06-4013-8fde-ed4291655b13", "title": "オープニング", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-27T17:00:00+09:00", "length_min": 15}, {"type": "timeslot", "uuid": "7dc316f7-46b1-4525-9ba5-c9a71075f3d8", "title": "スポンサーセッション", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-27T17:15:00+09:00", "length_min": 30}, {"type": "timeslot", "uuid": "6fe0718d-8ce2-4a73-9baf-e96723087775", "title": "キーノートワークショップ", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-27T17:45:00+09:00", "length_min": 60}, {"type": "timeslot", "uuid": "63d2f15b-9b2e-4c0d-9faa-bbaee6312798", "title": "移動", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-27T18:45:00+09:00", "length_min": 15}, {"type": "timeslot", "uuid": "f9cc30ba-09b0-44f1-9674-c705709098bd", "title": "懇親会BBQ@エスパーナ", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-27T19:00:00+09:00", "length_min": 180}, {"type": "timeslot", "uuid": "7f0b7b61-94a4-49eb-837e-02726e776a01", "title": "解散", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-27T22:00:00+09:00", "length_min": 30}, {"type": "timeslot", "uuid": "17e41a6b-7a91-45f0-8a71-f078eb4aaf35", "title": "オープニング・マーケットプレイス", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-28T09:30:00+09:00", "length_min": 30}, {"type": "talk", "uuid": "7c248a3a-060c-4c99-9f51-da96593d79e4", "url": "https://fortee.jp/scrumfest-okinawa-2026/proposal/7c248a3a-060c-4c99-9f51-da96593d79e4", "title": "スクラムで​価値を​届けるって​こういう​ことか！​ジグソーパズルを​使った​スクラム体験ワークショップ", "abstract": "【ワークショップ概要】\r\nスクラムは​「価値ある​プロダクトを​届ける​ための​フレームワーク」と​言われていますが、​正直、​本や​ガイドを​読むだけじゃピンと​こない​ことも​多いですよね。\r\n​ 「顧客価値とは？」、「スクラムイベントって​何の​ために​ある？」、そんな​疑問を​感じた​ことは​ありませんか？​\r\nこの​ワークショップでは、​ジグソーパズルを​“プロダクト”に​見立てて、​スクラムの​流れ（スプリントプランニング・スプリント・スプリントレビュー・スプリントレトロスペクティブ）を​チームで​実際に​取り​組んでいただきます！​\r\nジグソーパズルには​完成図が​ありますが、​限られた​時間の​中で​「どう​すれば​最大の​価値を​顧客に​届けられるか？」を​チームで​考えながら​進めていく​ワークになっています。​\r\n\r\n実際に​社内外で​このワークショップを実施した際には、​\r\n　・このワークショップでは、学びや気づきが多く、何よりスクラムを楽しく学べたことが大きな収穫でした\r\n　・スクラムの回し方のワークショップはよくあるものの、\"価値を届けるという観点\"で非常に勉強になりました\r\n　・ステークホルダーとの対話(ユーザー視点、合意形成、交渉・提案など)の重要性に​気づくことができました​\r\n　・大変面白い取組みだったため、社内に持ち帰ってこのワークショップを体験してもらう研修を実施しました\r\nと​いった​感想やフィードバックが​ありました。​\r\n\r\nこの​ワークショップは、​再現性も高く、様々なカスタマイズが可能な​拡張性もあり、ワークショップ資料もその場で参加者へ配布いたします。​\r\nスクラムを​これから​学びたい方も、​社内で​スクラムを​広めたい方も、​座学では​得られにくい​「なる​ほど！」と​いう​気づきや​ヒントが​見つかるはずです。​\r\n​「価値を​届けるって​こういう​ことか！」と​いう​実感を、ぜひ一緒に​楽しみながら​体験してみませんか？​\r\n\r\n【学習効果】 \r\n・スクラムの​イベントを​簡易的に​体験する​ことができる\r\n・ステークホルダーとの​コミュニケーションの​重要性を​学ぶことができる\r\n・作成物の​価値と​スクラムチームの​ありたい​姿に​ついて​学ぶことができる\r\n・本ワークショップを​自社へ​持ち帰り、​スクラム導入教育の題材と​して​使用できる", "accepted": true, "track": {"name": "WS-A", "sort": 2}, "starts_at": "2026-11-28T10:00:00+09:00", "length_min": 120, "tags": [], "speaker": {"name": "田中 雅彦", "kana": "タナカ マサヒコ"}, "fav_count": 1, "feedback": {"open": false}}, {"type": "talk", "uuid": "fe443795-2f79-47dd-8564-b609e6271f83", "url": "https://fortee.jp/scrumfest-okinawa-2026/proposal/fe443795-2f79-47dd-8564-b609e6271f83", "title": "「言えない」は勇気の問題じゃない − 発言を、“気合い”ではなく”仕組み”で引き出すチームルール導入体験ワークショップ", "abstract": "ふりかえりで、誰も本題に触れないまま時間が過ぎる。 \r\n設計レビューで違和感があるのに、場の空気で飲み込む。\r\n障害対応のさなか、最も決定的なログを見ていた人が最後まで何も言わなかった。\r\nこういう場面に対して、私たちはつい「心理的安全性を高めよう」「もっと率直に言おう」と呼びかけます。でも、呼びかけで変わった経験はどれくらいあるでしょうか。\r\n\r\n発言するかどうかは、動機とコストの関係で決まります。\r\n呼びかけ・啓発・気合いは「動機」に働きかけるものです。\r\n今回アプローチするのはもう一方です。必要性と「コスト」。こちらは場の属性なので、設計が可能です。\r\n\r\n「知的コンバット」ができるチームづくりの一歩目を試行することで、一緒に考えてみませんか？\r\n\r\nやること\r\nチームで、ひとつの謎を解いてもらいます。\r\n手元に情報カードが配られますが、カードを他の人に見せることはできません。「伝えたいことは、口で言う」ルールはこれだけです。\r\n正解にたどりつくための決定的な情報は複数の人に分かれています。もっともらしいけれど間違っている情報も混ざっています。\r\n\r\nLearning Outcome\r\n・発言は動機ではなく必要性とコストで決まるという見方を持ち帰り、チームの沈黙を「勇気の不足」ではなく「場の設計」として説明できるようになる\r\n・発言を引き出す仕組みとなる、いくつかのレバーを持ち帰れる\r\n・発言したことでチームの結果が良くなった、という成功体験を持ち帰れる\r\n\r\nこんな方に（Target Audience）\r\n・ふりかえりで意見が出ない／いつも同じ人が話している、と感じているスクラムマスター・EM・リーダー\r\n・「心理的安全性」を知識としては理解しているが、明日のチームで何をすればいいか手が止まっている方\r\n・立場が上がってしまい、自分がいると場が静かになると薄々気づいている方\r\n・自分のチームに持ち帰って再演できるワークを探している方\r\n\r\nご参加にあたって\r\n・職場の実話を開示していただく必要はありません。扱うのは架空の課題です。\r\n・ワークショップの構造は現場のインシデント対応に似ていますが、現場には、あらかじめ正解が存在しません。この差をどう埋めるかについても最後にお話したいと思います。\r\n・カードセットと進行手順はその場でお渡しします。道具は紙のカードとタイマーだけなので、自分のチームでそのまま再演できます。\r\n", "accepted": true, "track": {"name": "WS-B", "sort": 3}, "starts_at": "2026-11-28T10:00:00+09:00", "length_min": 120, "tags": [], "slide_url": "https://www.docswell.com/s/piro12vortis/5Y8QY7-facilitators_satei+piro-sep2026", "speaker": {"name": "piro/satei", "kana": "ピロ・サテイ", "twitter": "piro12vortis", "avatar_url": "https://fortee.jp/files/scrumfest-okinawa-2026/speaker/816b2265-e4b5-4209-8935-a4af513ad564.png"}, "fav_count": 3, "feedback": {"open": false}}, {"type": "timeslot", "uuid": "69644d61-6539-46c6-a7f8-662cb08db0d7", "title": "OST", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-28T10:00:00+09:00", "length_min": 120}, {"type": "timeslot", "uuid": "111d7dc7-2527-44eb-8458-fa326c68ae07", "title": "ランチ", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-28T12:00:00+09:00", "length_min": 90}, {"type": "talk", "uuid": "560eb214-299a-4733-9a8c-3c9d1ed8b22c", "url": "https://fortee.jp/scrumfest-okinawa-2026/proposal/560eb214-299a-4733-9a8c-3c9d1ed8b22c", "title": "「リリースしていいですか？」― カードゲームを通して考える、私たちは何を基準にリリースを決めているのか", "abstract": "「この状態で、リリースしていいですか？」\r\n\r\nプロダクト開発では、リリースするかどうかを判断する場面があります。そのとき、私たちは何を基準に「リリースしていい」「まだリリースできない」と判断しているのでしょうか。\r\n\r\n残っているバグの数や重大度、ユーザーへの影響、提供できる価値、スケジュール、問題が起きたときに戻せるかどうか。同じ状況を見ていても、立場や経験によって重視するものは異なります。\r\n\r\nリリース判断には、どんな状況でも使える唯一の「正解」があるわけではありません。\r\nだからこそ、「誰がリリースを決めるか」だけではなく、チームの一人ひとりが何を見て、何をリスクと捉え、どんな基準で判断しているのかを知り、対話することが大切です。\r\n\r\n本ワークショップでは、カードゲーム「リリースしていいですか？」をプレイします。機能を開発し、発生したバグに向き合いながら、限られた情報の中でリリースするかどうかを判断します。\r\n\r\nゲーム後には「なぜそのタイミングでリリースしようと思った？」「なぜまだリリースできないと思った？」を振り返り、それぞれが判断するときに重視していたことを言語化していきます。\r\n参加者同士で判断基準を共有し、その共通点や違いについて意見交換しましょう。\r\n\r\n### Learning Outcome\r\n\r\n* 自分がリリース判断で何を重視しているのかを言語化できる\r\n* 同じ状況でも、人によって判断やその基準が異なることに気づく\r\n* 自分たちのチームでは何を基準にリリースを判断しているのか、対話するきっかけを得る\r\n", "accepted": true, "track": {"name": "WS-B", "sort": 3}, "starts_at": "2026-11-28T13:30:00+09:00", "length_min": 90, "tags": [], "speaker": {"name": "Sammy", "kana": "サミー", "twitter": "AWorkingholiday", "avatar_url": "https://fortee.jp/files/scrumfest-okinawa-2026/speaker/84143e0f-af3d-483c-8c57-f73cd3ff0cd5.jpg"}, "fav_count": 3, "feedback": {"open": false}}, {"type": "talk", "uuid": "712f568f-885f-493d-8cdd-f2bcf7c12490", "url": "https://fortee.jp/scrumfest-okinawa-2026/proposal/712f568f-885f-493d-8cdd-f2bcf7c12490", "title": "AI悪魔の​代弁者を使って、安心安全に、健全な衝突を練習しよう！", "abstract": "[ワークショップ内容]\r\n変化が激しく複雑な現代において、チーム全員の視点を掛け合わせた質の高い意思決定こそが、プロダクトや組織の可能性を高めます。\r\nところがミーティング中、思うことがあっても「これを言ったら自分はどう思われるかな？」という不安だったり、上司や同僚との関係性を大切にするあまり、言葉を飲み込んでしまったり、遠回しに言ってみたけど結局伝わらなかったりで終わってしまい、もやもやが残ったり、貴重な違和感や別視点が埋もれているのではないかと心配になりませんか？\r\n\r\nより良い成果を生み出すには、お互いをリスペクトしながら視点を深め合う『健全な衝突』が不可欠です。\r\n本セッションでは、意見のぶつかりあいに抵抗がある、またはチームにそういったムードがあってお悩みの方向けに、\r\n建設的な話し合いをする『安全なスパーリング（練習）』をワークを通して体験していただきます。\r\n\r\n当日は次のステップで進行します。\r\nSTEP ①\r\nワークの前に：次の２点について整理します\r\n心理的安全性のおさらい：「単に気遣い合う関係」と「安心して異論をぶつけ合える信頼関係（真の心理的安全性）」の違い\r\nなぜ健全な衝突が必要か： プロダクトの価値やチームの成果を高めるために異論や違和感を伝えあうことの価値とは\r\n\r\nSTEP ②\r\n安心安全なスパーリングタイム\r\n生成AIとの掛け合わせにより、安心安全な状態で「意図的な意見の対立」を再現、\r\n意見を交わす中で起きる心理変化を観察しながら、本質的な議論の疑似体験をします。\r\n\r\nSTEP ③\r\nお土産準備タイム\r\nワークだけで終わらせず、自チームの会議体や文化に「健全な衝突」を自然と組み込むための具体的な方法を設計します。\r\n\r\nLearning Outcome\r\n・チーム成果のために異論や違和感を可視化する価値を理解できます\r\n・生成AIを対話のクッションにし、安心・安全に意見を戦わせるスパーリング方法を体験できます\r\n・単なる体験で終わらせず、日常の会議に「健全な衝突」を組み込む仕掛けを持ち帰れます\r\n\r\nおすすめしたい方\r\n・チーム内で意見やアイデアが出にくく悩んでいる方\r\n・意見のぶつかりあいに抵抗があって、アイデアや異論を言いにくいと感じている方", "accepted": true, "track": {"name": "WS-A", "sort": 2}, "starts_at": "2026-11-28T13:30:00+09:00", "length_min": 45, "tags": [], "speaker": {"name": "IGA", "kana": "イガ"}, "fav_count": 1, "feedback": {"open": false}}, {"type": "timeslot", "uuid": "bd92b863-88f6-4c50-bb16-f55be0d0fcb1", "title": "OST", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-28T13:30:00+09:00", "length_min": 120}, {"type": "talk", "uuid": "4f48f614-4ca0-43d7-8310-1f0ca30b5e53", "url": "https://fortee.jp/scrumfest-okinawa-2026/proposal/4f48f614-4ca0-43d7-8310-1f0ca30b5e53", "title": "接点を探せ！〜共感の前にある、相手の世界への扉〜", "abstract": "[ワークショップ内容]\r\n私たちはよく、「共感しよう」、「相手を理解しよう」と言ったり、言われたりします。\r\n\r\nでもチームやコミュニティには必ずしも共感しやすい人ばかりがいるわけではありません。\r\nでは、共感以外で何を手がかりにして相手を知ればよいのでしょうか？\r\n\r\nこのワークショップでは、その手がかりとして、「接点」に注目します。\r\n\r\nまずは客観的に共有できる経験や習慣の中から接点を探し、その接点を入り口に相手の世界を少しだけのぞいてみます。\r\n\r\n自己紹介が「自分を知ってもらう」ためのアプローチだとすれば、このワークショップは「相手とのつながりを見つける」ためのアプローチです。\r\n\r\n目指すのは深い自己開示でも無理な共感でもありません。\r\n\r\n「この人のことを前より少し想像できるようになった」\r\nそんな体験を通して、接点が人と人とをつなぐ最初の一歩になりえるのか、一緒に探ってみませんか？\r\n\r\n[参加者の方に持ち帰ってもらえると嬉しいこと]\r\n・共感だけに頼らない関係性づくりのアプローチとして使ってもらう\r\n・初対面の相手や関係性の薄い相手との対話の入口にしてもらう\r\n・相手への関心や理解を広げるための問いの立て方の練習になる\r\n\r\n[アウトライン]\r\n1. 導入\r\n 1.1. オープニング\r\n 1.2. ワーク・注意事項の説明\r\n2. ワーク(１ラウンド目)\r\n 2.1. ペアを組む\r\n 2.2. お互いの接点を探す\r\n 2.3. ふりかえり\r\n3. ワーク(２ラウンド目)\r\n 3.1.お互いの接点を探す(ペアは変えない)\r\n 3.2.ふりかえり\r\n4. ワーク(３ラウンド目)\r\n 4.1. 別の人とペアを組む\r\n 4.2. お互いの接点を探す\r\n 4.3. ふりかえり\r\n5. 全体ふりかえり\r\n6. クロージング", "accepted": true, "track": {"name": "WS-A", "sort": 2}, "starts_at": "2026-11-28T14:15:00+09:00", "length_min": 45, "tags": [], "speaker": {"name": "玉子寿司", "kana": "タマゴズシ", "twitter": "tamagosesea"}, "fav_count": 1, "feedback": {"open": false}}, {"type": "timeslot", "uuid": "67c813ac-77fe-4837-83ce-ee6ea0235e46", "title": "スポンサーLT", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-28T15:30:00+09:00", "length_min": 30}, {"type": "talk", "uuid": "17e00691-de13-4750-97cc-bb420dd0d6f6", "url": "https://fortee.jp/scrumfest-okinawa-2026/proposal/17e00691-de13-4750-97cc-bb420dd0d6f6", "title": "『深掘り問いカードを使って問いの手札を増やそう！』と『LeanCoffee式ファシリテーショントレーニング』", "abstract": "今回は、河野が普段行っている２つのワークショップを前後半で開催したいと思います。\r\n\r\n◆前半『深掘り問いカードを使って問いの手札を増やそう！』\r\n問いが大事だ！なんて言われても、どう問いかけていいかわからないときありませんか？その場その時に適切な問いをさっと取り出す、そういうことができるといいですよね。あらかじめどういう問いがあるのかを知っていると、その中から適切な問いを見つけることができるかもしれません。そこで、問いが書かれたカードを使って、その時に適切な問いを取り出す練習をしてみることを提案します。『深掘り問いカード』というものを作ったので、みんなでゲーム感覚でどういう問いがあるかを学びたいと思います。\r\n\r\n≪内容≫\r\n1人が相談者となり、4-5人が問いかける人、それ以外は観戦します。\r\nこれを2回繰り返す予定です。\r\n10人前後で60分を見込んでいます。\r\n\r\n≪学び≫\r\n・問いを手札として持っておくことの良さ\r\n・問いの手札を増やせる\r\n\r\n≪詳しくはこちら≫\r\nhttps://speakerdeck.com/kawanotron/shen-jue-riwen-ikadowoshi-tutewen-inoshou-zha-wozeng-yasou\r\n\r\n◆後半『LeanCoffee式ファシリテーショントレーニング』\r\nファシリテーションに興味があるみなさんは、どのようにファシリテーションを練習していますか？朝会のファシリテーションをやってみるとか、輪番でやるとかあると思いますが、自分のファシリテーションをふりかえってみることはあるでしょうか？Lean Coffee というアジェンダのない会議のやり方を参考に、議論を7分毎にふりかえるというファシリテーションの練習方法を提案します。このやり方は誰でも真似できるので、一度経験してみてみなさんの職場やコミュニティなどでも取り入れてみてもらえるとうれしいです。\r\n\r\n≪内容≫\r\n1人がファシリテーター、1人が板書、それ以外は議論に参加します。\r\n7分おきにファシリテーターと板書を交代します。\r\n10人前後で60分を見込んでいます。\r\n\r\n≪学び≫\r\n・自分や他の人のファシリテーションをふりかえることでの気づき\r\n・ファシリテーションのトレーニング方法\r\n\r\n≪詳しくはこちら≫\r\nhttps://note.com/kawanotron/n/nad252c60eb26", "accepted": true, "track": {"name": "WS-A", "sort": 2}, "starts_at": "2026-11-28T16:00:00+09:00", "length_min": 90, "tags": [], "speaker": {"name": "河野圭一郎", "kana": "カワノケイイチロウ", "twitter": "kawanotron"}, "fav_count": 0, "feedback": {"open": false}}, {"type": "talk", "uuid": "e0fc9423-addc-4e45-9641-c1571f4b55e9", "url": "https://fortee.jp/scrumfest-okinawa-2026/proposal/e0fc9423-addc-4e45-9641-c1571f4b55e9", "title": "To Make The End of Miscommunication ~認識の齟齬からチームを救うために~", "abstract": "　開発チームが沈黙しました・・・。\r\n　いかがいたしましょうか?\r\n\r\nSF沖縄に参加される皆様であればITスキルだけでは成り立たないことはご存知でしょう。\r\n幾多とある非ITスキルのカテゴリーにコミュニケーションスキルというものがあります。このコミュニケーションスキルがなかなかの曲者なのです。\r\n\r\nタイトルにあるMiscommunication（ミスコミュニケーション）の意味を調べると\r\n\r\n　意思疎通の失敗、伝達ミスによる認識のズレ\r\n\r\nとあります。\r\nこの意味を反転させればミスのないコミュニケーションとなるはずです、これぞまさにコミュニケーションスキルが求めるものです。では反転させてみましょう。\r\n\r\n　意思疎通の成功、認識がズレることのない伝達\r\n\r\nこれこそ私達が求めるコミュニケーションです。\r\n傾聴や心理的安全性や否定しないといったコミュニケーションに関するスキルや知識を使えばこれが実現できるんです！・・・え？ほんとに？マジで？\r\n\r\n「意思疎通の成功、認識がズレることのない伝達」はややこしいので”正確性を求めるコミュニケーション（Unmiscommunication）“と定義しましょう。なお、便宜上の造語です。この”正確性を求めるコミュニケーション”を実現するために前述のスキルや知識は役に立ちます。が、役に立つ止まりなのです。\r\n\r\n\"正確性を求めるコミュニケーション\"について、いくつか例をあげます。\r\n\r\n- Miscommunication → Unmiscommunication\r\n- 「話を聞いてくれているのに、なぜか伝わっていない」→「聞いてくれた相手に、内容がちゃんと伝わっている」\r\n- 「何度説明しても誤解される」→「意図が正確に伝わる。誤解されても、すぐに誤解を解消できる」\r\n- 「相手の説明を聞いても、結局何が言いたいのかわからない」→「相手の話の核心が掴めるようになる」\r\n\r\nあなたが求めるものは、この中にありましたか? たった一回のセッションでこれらが完璧に身に付くことに疑問があると思います。確かにその通りです。しかし、何事も最初の一歩を踏み出さなければ始まりません。このセッションで最初の一歩を、あわよくば十歩、百歩を身につけて帰ってください。\r\n\r\nさあ、開発チームを沈黙させるMiscommunicationに終止符を打ち、Unmiscommunicationを手に入れましょう。", "accepted": true, "track": {"name": "WS-B", "sort": 3}, "starts_at": "2026-11-28T16:00:00+09:00", "length_min": 120, "tags": [], "speaker": {"name": "大和(メイド長)", "kana": "ヤマト", "twitter": "amameci", "avatar_url": "https://fortee.jp/files/scrumfest-okinawa-2026/speaker/c619d929-020c-4cf6-91e4-d99237d988be.jpg"}, "fav_count": 0, "feedback": {"open": false}}, {"type": "timeslot", "uuid": "6314e5cc-0e7c-477d-94ff-098f6535808a", "title": "OST", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-28T16:00:00+09:00", "length_min": 120}, {"type": "timeslot", "uuid": "415d6d1a-67b3-46e0-9b37-b415be7c7fcf", "title": "クロージング", "abstract": "", "track": {"name": "会場(1日目)", "sort": 1}, "starts_at": "2026-11-28T18:00:00+09:00", "length_min": 30}]};
+const SNAPSHOT_AT = "2026-11-06 22:58";
+const DAY_LABEL = { "2026-11-27": ["Day1", "11/27 金"], "2026-11-28": ["Day2", "11/28 土"] };
+const TRACKS = [["all", "すべて"], ["trk-main", "メイン"], ["trk-a", "WS-A"], ["trk-b", "WS-B"]];
+
+const trackLabel = n => n.startsWith("会場") ? "メイン会場" : n;
+const trackClass = n => n === "WS-A" ? "trk-a" : n === "WS-B" ? "trk-b" : "trk-main";
+const day = it => it.starts_at.slice(0, 10);
+const mins = iso => +iso.slice(11, 13) * 60 + +iso.slice(14, 16); // wall-clock JST from "+09:00" ISO
+const fmt = m => String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+const span = it => { const s = mins(it.starts_at); return `${fmt(s)}–${fmt(s + it.length_min)}`; };
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function nowJst() {
+  const d = new Date(Date.now() + 9 * 3600e3);
+  return { day: d.toISOString().slice(0, 10), min: d.getUTCHours() * 60 + d.getUTCMinutes() };
+}
+function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+// Pure: what is on now and what starts next, for a given day/minute.
+function nowNext(items, d, m) {
+  const today = items.filter(i => day(i) === d);
+  const now = today.filter(i => mins(i.starts_at) <= m && m < mins(i.starts_at) + i.length_min);
+  const upcoming = today.filter(i => mins(i.starts_at) > m);
+  const nextStart = Math.min(...upcoming.map(i => mins(i.starts_at)));
+  const next = upcoming.filter(i => mins(i.starts_at) === nextStart);
+  return { now, next, nextStart };
+}
+
+let items = [], currentDay = null, filter = store("sfo2026-track") || "all", scrolledToNow = false;
+const isNow = it => { const n = nowJst(); const s = mins(it.starts_at); return n.day === day(it) && n.min >= s && n.min < s + it.length_min; };
+const visible = it => filter === "all" || trackClass(it.track.name) === filter
+  || (it.type === "timeslot" && !/OST/.test(it.title) && trackClass(it.track.name) === "trk-main"); // keep plenary slots (Opening, Lunch…) in every filter
+
+function listItem(it, multi) {
+  const talk = it.type === "talk";
+  const b = el(talk ? "button" : "div", `item ${talk ? "talk" : "slot"} ${trackClass(it.track.name)}`);
+  if (talk) { b.type = "button"; b.addEventListener("click", () => openSheet(it)); }
+  if (!talk && /OST/.test(it.title)) b.classList.add("ost");
+  if (isNow(it)) b.classList.add("is-now");
+  const head = el("div", "head");
+  if (multi && (talk || /OST/.test(it.title))) head.append(el("span", "chip " + trackClass(it.track.name), trackLabel(it.track.name)));
+  head.append(el("span", null, `${span(it)}・${it.length_min}分`));
+  b.append(head, el("span", "ttl", it.title));
+  if (talk && it.speaker) b.append(el("span", "sp", it.speaker.name));
+  if (talk) b.append(el("span", "more", "概要を見る"));
+  return b;
+}
+
+function gridCard(it) {
+  const talk = it.type === "talk";
+  const c = el(talk ? "button" : "div", `card ${talk ? "talk" : "slot"} ${trackClass(it.track.name)}`);
+  if (talk) { c.type = "button"; c.addEventListener("click", () => openSheet(it)); }
+  if (!talk && /OST/.test(it.title)) c.classList.add("ost");
+  if (isNow(it)) c.classList.add("is-now");
+  c.append(el("span", "t", `${span(it)}・${it.length_min}分`), el("span", "ttl", it.title));
+  if (talk && it.speaker) c.append(el("span", "sp", it.speaker.name));
+  return c;
+}
+
+function renderNowNext() {
+  const box = document.getElementById("nownext");
+  const n = nowJst();
+  if (n.day !== currentDay) { box.hidden = true; return; }
+  const { now, next, nextStart } = nowNext(items.filter(visible), n.day, n.min);
+  if (!now.length && !next.length) { box.hidden = true; return; }
+  box.replaceChildren();
+  const block = (label, cls, list, remText) => {
+    if (!list.length) return;
+    const b = el("div", "nn-block"); b.append(el("div", "nn-label " + cls, label));
+    for (const it of list) {
+      const talk = it.type === "talk";
+      const r = el(talk ? "button" : "div", "nn-item" + (talk ? " talk" : ""));
+      if (talk) { r.type = "button"; r.addEventListener("click", () => openSheet(it)); }
+      r.append(el("span", "chip " + trackClass(it.track.name), trackLabel(it.track.name)), el("span", "rem", remText(it)), el("span", "ttl", it.title));
+      b.append(r);
+    }
+    box.append(b);
+  };
+  block("いま", "", now, it => `残り${mins(it.starts_at) + it.length_min - n.min}分・${span(it)}`);
+  block("つぎ", "next", next, () => `あと${nextStart - n.min}分・${fmt(nextStart)}開始`);
+  box.hidden = false;
+}
+
+function render() {
+  document.querySelectorAll(".filter").forEach(f => f.setAttribute("aria-pressed", String(f.dataset.f === filter)));
+  const all = items.filter(i => day(i) === currentDay);
+  const shown = all.filter(visible);
+  const multi = new Set(all.map(i => i.track.name)).size > 1;
+
+  // list
+  const list = document.getElementById("list");
+  list.replaceChildren();
+  if (!shown.length) list.append(el("p", "empty", "この日はこのトラックの予定はありません"));
+  const groups = new Map();
+  for (const it of [...shown].sort((a, b) => mins(a.starts_at) - mins(b.starts_at) || a.track.sort - b.track.sort)) {
+    const k = mins(it.starts_at); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(it);
+  }
+  let nowGroup = null;
+  for (const [start, g] of groups) {
+    const sec = el("section", "group");
+    const h = el("div", "group-time"); h.append(el("time", null, fmt(start)));
+    if (g.some(isNow)) { h.append(el("span", "live", "● 開催中")); nowGroup = nowGroup || sec; }
+    const box = el("div", "items"); g.forEach(it => box.append(listItem(it, multi)));
+    sec.append(h, box); list.append(sec);
+  }
+
+  // grid
+  const tracks = [...new Map(all.map(i => [i.track.name, i.track])).values()].sort((a, b) => a.sort - b.sort);
+  const from = Math.floor(Math.min(...all.map(i => mins(i.starts_at))) / 30) * 30;
+  const to = Math.ceil(Math.max(...all.map(i => mins(i.starts_at) + i.length_min)) / 30) * 30;
+  const row = m => (m - from) / 15 + 2;
+  const grid = document.getElementById("grid");
+  grid.style.setProperty("--cols", tracks.length);
+  grid.replaceChildren();
+  tracks.forEach((t, i) => {
+    const h = el("div", "colhead"); h.style.gridColumn = i + 2;
+    h.append(el("span", "sw " + trackClass(t.name)), trackLabel(t.name)); grid.append(h);
+  });
+  for (let m = from; m < to; m += 15) {
+    if (m % 30 === 0) { const tk = el("div", "tick", fmt(m)); tk.style.gridRow = `${row(m)} / span 2`; grid.append(tk); }
+    const r = el("div", "rule" + (m % 60 === 0 ? " hour" : "")); r.style.gridRow = row(m); grid.append(r);
+  }
+  for (const it of all) {
+    const c = gridCard(it); const s = mins(it.starts_at);
+    c.style.gridRow = `${row(s)} / ${row(s + it.length_min)}`;
+    c.style.gridColumn = tracks.findIndex(t => t.name === it.track.name) + 2;
+    if (!visible(it)) c.style.opacity = ".35";
+    grid.append(c);
+  }
+
+  renderNowNext();
+  document.documentElement.style.setProperty("--bar-h", document.getElementById("bar").offsetHeight + "px");
+  if (nowGroup && !scrolledToNow) {
+    scrolledToNow = true;
+    const y = nowGroup.getBoundingClientRect().top + window.scrollY - document.getElementById("bar").offsetHeight - 8;
+    window.scrollTo({ top: Math.max(0, y) });
+  }
+}
+
+function renderControls(days) {
+  const tabs = document.getElementById("tabs");
+  tabs.style.setProperty("--days", days.length);
+  tabs.replaceChildren(...days.map(d => {
+    const [name, date] = DAY_LABEL[d] || [d, ""];
+    const b = el("button", "tab"); b.type = "button"; b.id = "tab-" + d; b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", String(d === currentDay)); b.append(name, el("small", null, date));
+    b.addEventListener("click", () => {
+      currentDay = d; store("sfo2026-day", d);
+      tabs.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t === b)));
+      render(); window.scrollTo({ top: 0 });
+    });
+    return b;
+  }));
+  document.getElementById("filters").replaceChildren(...TRACKS.map(([key, label]) => {
+    const b = el("button", "filter"); b.type = "button"; b.id = "filter-" + key; b.dataset.f = key;
+    if (key !== "all") b.append(el("span", "sw " + key));
+    b.append(label);
+    b.addEventListener("click", () => { filter = key; store("sfo2026-track", key); render(); });
+    return b;
+  }));
+}
+
+const scrim = document.getElementById("scrim");
+let lastFocus = null;
+function openSheet(it) {
+  lastFocus = document.activeElement;
+  document.getElementById("p-title").textContent = it.title;
+  const s = mins(it.starts_at);
+  document.getElementById("p-row").replaceChildren(
+    el("span", "chip " + trackClass(it.track.name), trackLabel(it.track.name)),
+    el("span", null, `${(DAY_LABEL[day(it)] || [""])[0]} ${span(it)}（${it.length_min}分）`));
+  document.getElementById("p-speaker").textContent = it.speaker ? it.speaker.name : "";
+  document.getElementById("p-abs").textContent = (it.abstract || "").replace(/\r\n/g, "\n").trim();
+  const link = document.getElementById("p-link"); link.hidden = !it.url; if (it.url) link.href = it.url;
+  scrim.hidden = false; document.body.style.overflow = "hidden";
+  scrim.querySelector(".sheet").scrollTop = 0;
+  document.getElementById("p-close").focus();
+}
+function closeSheet() { scrim.hidden = true; document.body.style.overflow = ""; if (lastFocus) lastFocus.focus(); }
+document.getElementById("p-close").addEventListener("click", closeSheet);
+scrim.addEventListener("click", e => { if (e.target === scrim) closeSheet(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !scrim.hidden) closeSheet(); });
+
+function setSource(live) {
+  document.getElementById("source").classList.toggle("live", live);
+  document.getElementById("source-text").textContent = live ? "fortee の最新データを表示中" : `fortee のスナップショット（${SNAPSHOT_AT} 時点）を表示中`;
+}
+function load(first) {
+  return fetch(API, { headers: { Accept: "application/json" }, cache: "no-store" })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => { items = d.timetable; setSource(true); return true; })
+    .catch(() => { if (first && SNAPSHOT) { items = SNAPSHOT.timetable; setSource(false); return true; } return false; });
+}
+
+load(true).then(ok => {
+  if (!ok || !items.length) { document.getElementById("source-text").textContent = "タイムテーブルを読み込めませんでした。電波の良い場所で再読み込みしてください。"; return; }
+  const days = [...new Set(items.map(day))].sort();
+  const today = nowJst().day, saved = store("sfo2026-day");
+  currentDay = days.includes(today) ? today : days.includes(saved) ? saved : days[0];
+  renderControls(days);
+  render();
+  setInterval(render, 60e3);                                   // keep now/next fresh
+  setInterval(() => load(false).then(ok => ok && render()), 5 * 60e3); // pick up fortee edits
+  window.addEventListener("resize", () => document.documentElement.style.setProperty("--bar-h", document.getElementById("bar").offsetHeight + "px"));
+});
+</script>
+</body>
+</html>
